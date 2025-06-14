@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rapidcompetitions
+  namespace: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rapidcompetitions
+  template:
+    metadata:
+      labels:
+        app: rapidcompetitions
+    spec:
+      containers:
+      - name: rapidcompetitions
+        image: mohammednawazmynulislam/rapidcompetitions:latest
+        - containerPort: 8000
+        env:
+        - name: DJANGO_SETTINGS_MODULE
+          value: "rapid.settings"
+        - name: DEBUG
+          value: "False"
+        - name: ALLOWED_HOSTS
+          value: "*"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10 
