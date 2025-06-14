@@ -22,3 +22,4 @@ To Run This Application
     libffi-dev \
     libpq-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Dockerize-Push-to-Docker-Hub---Deploy-on-Kubernetes-AWS-EC2
